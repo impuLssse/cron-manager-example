@@ -1,0 +1,9 @@
+node_modules
+.env
+.git
+.vscode
+dist
+dist2
+build
+videos/mp4/*
+videos/mkv/*

@@ -1,0 +1,4 @@
+include:
+  - project: "sysadmin/pipelines"
+    ref: main
+    file: "client-api-ts/.gitlab-ci.yml"
