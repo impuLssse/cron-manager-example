@@ -30,12 +30,7 @@ export const convertMkvToMp4Task = async () => {
 
     // Конвертируем mkv в mp4
     appLogger.info(`[${video.id}] Start conversion`);
-
-    try {
-      await e(`ffmpeg -y -i ${mkvFile} -c:v libx264 -c:a aac ${mp4File}`);
-    } catch (e) {
-      console.log(e);
-    }
+    await e(`ffmpeg -y -i ${mkvFile} -c:v libx264 -c:a aac ${mp4File}`);
 
     // Отправляем сконвертированный файл в хранилище
     appLogger.info(`[${video.id}] Upload video ${video.id} to s3`);
