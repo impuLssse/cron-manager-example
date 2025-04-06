@@ -29,7 +29,7 @@ async function bootstrapApp() {
       case CronJob.ConvertMkvToMp4:
         setInterval(() => {
           convertMkvToMp4Task();
-        }, 2000);
+        }, 3000);
         // Добавляем таску в очередь
         break;
     }

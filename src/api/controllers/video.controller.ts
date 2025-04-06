@@ -17,8 +17,14 @@ export const videoRouter = (
     method: "GET",
     url: "/videos",
     handler: async (_: FastifyRequest, reply: FastifyReply) => {
-      const foundVideos = await videoService.getAllVideos();
-      return reply.send(foundVideos);
+      const videos = await videoService.getAllVideos();
+      return reply.send(
+        videos.map((video) => ({
+          ...video,
+          keyInS3:
+            process.env.S3_ENDPOINT + "/" + process.env.S3_BUCKET + `/videos/${video.id}`,
+        })),
+      );
     },
   });
 
