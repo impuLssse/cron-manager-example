@@ -21,8 +21,9 @@ export const videoRouter = (
       return reply.send(
         videos.map((video) => ({
           ...video,
-          keyInS3:
-            process.env.S3_ENDPOINT + "/" + process.env.S3_BUCKET + `/videos/${video.id}`,
+          keyInS3: video.keyInS3
+            ? process.env.S3_ENDPOINT + "/" + process.env.S3_BUCKET + `/${video.keyInS3}`
+            : null,
         })),
       );
     },
