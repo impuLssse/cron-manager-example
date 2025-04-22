@@ -1,11 +1,5 @@
+import { IVideo } from "@types";
 import { knexClient } from "@main";
-
-export type IVideo = Partial<{
-  keyInS3: string;
-  id: string;
-  status: string;
-  createdAt: string;
-}>;
 
 export class VideoService {
   async getAllVideos(): Promise<IVideo[]> {
