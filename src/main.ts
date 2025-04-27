@@ -11,11 +11,13 @@ import { videoRouter } from "@api/controllers";
 import { fastifyFormbody } from "@fastify/formbody";
 import { apiErrorHandler } from "@api-error-handler";
 import { fastifyMultipart } from "@fastify/multipart";
+import { CronManager } from "@api/services/cron.service";
 import { FileService, S3Service, VideoService } from "@api/services";
 
 // Инициализация сервисов и БД
 export const knexClient = knex(knexConfig);
 export const s3Service = new S3Service();
+export const cronManager = new CronManager();
 export const fileService = new FileService();
 export const videoService = new VideoService();
 
@@ -27,10 +29,11 @@ async function bootstrapApp() {
   for (const activatedCronJob of activatedCronJobs) {
     switch (activatedCronJob) {
       case CronJob.ConvertMkvToMp4:
-        setInterval(() => {
-          convertMkvToMp4Task();
-        }, 3000);
-        // Добавляем таску в очередь
+        cronManager.addTask({
+          name: "convertMkvToMp4Task",
+          handler: convertMkvToMp4Task,
+          schedule: "* * * * * *",
+        });
         break;
     }
   }
